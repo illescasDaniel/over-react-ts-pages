@@ -2,7 +2,6 @@ import * as React from 'react'
 import {BrowserRouter, Link} from 'react-router-dom'
 import AppRoutes from '../../config/appRoutes'
 import './styles/App.css'
-// import {log} from 'util'
 
 export default class App extends React.Component {
   public render() {

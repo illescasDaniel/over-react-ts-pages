@@ -6,6 +6,7 @@ import Cors from '../../config/cors'
 import Recipe from '../../models/recipe'
 import RecipeSearchResult from '../../models/recipeSearchResult'
 import logo from '../../resources/logo.svg'
+import Log from '../../utils/log'
 import * as styles from './styles/home.css'
 
 export interface IHomeProps {
@@ -38,6 +39,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
   }
 
   public render() {
+    Log.out({test: 'hii'}, 'lol')
     const { text, testNumber} = this.props
     const { recipeTitles } = this.state
     return (
