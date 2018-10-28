@@ -5,7 +5,7 @@ import Home from '../pages/home/home'
 
 export default class AppRoutes extends React.Component {
 
-  public static pageTitle = 'over-react-ts-pages'
+  public static pageTitle = process.env.REACT_APP_NAME
   public static links = {
     about: `/${AppRoutes.pageTitle}/about`,
     home: `/${AppRoutes.pageTitle}/`
