@@ -24,7 +24,9 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
   public constructor(props: IHomeProps) {
     super(props)
-    this.fetchAPI()
+    this.fetchAPI().catch((reason) => {
+      Log.error(`Request rejected\n${reason}`)
+    })
   }
 
   public async fetchAPI() {
