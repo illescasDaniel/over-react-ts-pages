@@ -1,11 +1,13 @@
-import {faCoffee} from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import * as React from 'react'
-import {Button} from 'reactstrap'
+import { Button } from 'reactstrap'
 import Cors from '../../config/cors'
 import Recipe from '../../models/recipe'
 import RecipeSearchResult from '../../models/recipeSearchResult'
 import logo from '../../resources/logo.svg'
+import positive from '../../utils/decorators/numbers/positive'
+import size from '../../utils/decorators/strings/size'
 import Log from '../../utils/log'
 import * as styles from './styles/home.css'
 
@@ -22,11 +24,23 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
   public readonly state: Readonly<IHomeState> = {recipeTitles: []}
 
+  @positive()
+  public testNumber: number | null = 100
+
+  @size({min: 1, max: 10})
+  public testString: string | null = 'hello'
+
   public constructor(props: IHomeProps) {
     super(props)
+    Log.out(this.testNumber)
+    this.testNumber = 200
+    Log.out(this.testNumber)
+    this.testNumber = -200
+    Log.out(this.testNumber)
     this.fetchAPI().catch((reason) => {
       Log.error(`Request rejected\n${reason}`)
     })
+    // Log.info(this.testNumber1(), 'yep')
   }
 
   public async fetchAPI() {
@@ -46,11 +60,12 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
   public render() {
     Log.out({test: 'hii'}, 'lol')
+    Log.out(this.testNumber)
     const { text, testNumber} = this.props
     const { recipeTitles } = this.state
     return (
       <div>
-        <Button onClick={this.onForm1ButtonClick}>
+        <Button onClick={this._onForm1ButtonClick}>
           <FontAwesomeIcon icon={faCoffee} /> {text} {testNumber}
         </Button>
         <img src={logo} className={styles.imgLogo} />
@@ -62,7 +77,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
     )
   }
 
-  private onForm1ButtonClick = (event: React.MouseEvent) => {
+  private _onForm1ButtonClick = (event: React.MouseEvent) => {
     const buttonElement = event.nativeEvent.target as HTMLButtonElement
     if (buttonElement != null) {
       buttonElement.innerText = 'changed!'

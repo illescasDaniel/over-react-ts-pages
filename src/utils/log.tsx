@@ -1,32 +1,32 @@
 export default class Log {
 
   public static out(message?: any, ...optionalParams: any[]) {
-    Log.globalConsole.log(message, ...optionalParams)
+    Log._globalConsole.log(message, ...optionalParams)
   }
 
   public static inspect(message?: any, ...optionalParams: any[]) {
-    Log.globalConsole.dir(message, ...optionalParams)
+    Log._globalConsole.dir(message, ...optionalParams)
   }
 
   //
 
   public static info(message?: any, ...optionalParams: any[]) {
-    Log.globalConsole.info(message, ...optionalParams)
+    Log._globalConsole.info(message, ...optionalParams)
   }
 
   public static warning(message?: any, ...optionalParams: any[]) {
-    Log.globalConsole.warn(message, ...optionalParams)
+    Log._globalConsole.warn(message, ...optionalParams)
   }
 
   public static error(message?: any, ...optionalParams: any[]) {
-    Log.globalConsole.error(message, ...optionalParams)
+    Log._globalConsole.error(message, ...optionalParams)
   }
 
   //
 
   public static trace(message?: any, ...optionalParams: any[]) {
-    Log.globalConsole.trace(message, ...optionalParams)
+    Log._globalConsole.trace(message, ...optionalParams)
   }
 
-  private static globalConsole = global.console
+  private static _globalConsole = global.console
 }
