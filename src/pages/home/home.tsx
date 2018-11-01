@@ -7,7 +7,7 @@ import Recipe from '../../models/recipe'
 import RecipeSearchResult from '../../models/recipeSearchResult'
 import logo from '../../resources/logo.svg'
 import positive from '../../utils/decorators/numbers/positive'
-import size from '../../utils/decorators/strings/size'
+import length from '../../utils/decorators/strings/length'
 import Log from '../../utils/log'
 import * as styles from './styles/home.css'
 
@@ -27,7 +27,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
   @positive()
   public testNumber: number | null = 100
 
-  @size({min: 1, max: 10})
+  @length({min: 1, max: 10})
   public testString: string | null = 'hello'
 
   public constructor(props: IHomeProps) {
@@ -40,6 +40,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
     this.fetchAPI().catch((reason) => {
       Log.error(`Request rejected\n${reason}`)
     })
+    // Log.info(s)
     // Log.info(this.testNumber1(), 'yep')
   }
 
@@ -60,7 +61,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
   public render() {
     Log.out({test: 'hii'}, 'lol')
-    Log.out(this.testNumber)
+    Log.out(this.testNumber, ''.isEmpty())
     const { text, testNumber} = this.props
     const { recipeTitles } = this.state
     return (

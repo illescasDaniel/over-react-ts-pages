@@ -5,11 +5,7 @@ export default function negative() {
   return DecoratorFactory.property((target: number, propertyName: string) => {
     let value: number = target[propertyName]
     PropertyHelper.redefine(target, propertyName,
-      () => {
-        return value < 0 ? value : null
-      },
-      (newVal: number) => {
-        value = newVal;
-      })
+      () => value < 0 ? value : null,
+      (newVal: number) => value = newVal)
   })
 }
