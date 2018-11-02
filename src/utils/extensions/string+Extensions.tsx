@@ -9,7 +9,7 @@ declare global {
 }
 
 String.prototype.isEmpty = function() {
-	return this.length === 0
+  return this.length === 0
 }
 
 String.prototype.isBlank = function() {
