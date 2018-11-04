@@ -34,7 +34,6 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
 
   public constructor(props: IHomeProps) {
     super(props)
-    Object.ifPresent(this.testNumber, (value: number) => value + 10)
     Log.out(this.testNumber)
     this.testNumber = 200
     Log.out(this.testNumber)
@@ -49,10 +48,10 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
     Log.out(testValue
       .ifPresent(v => v * 10)
       .ifPresent(v => v + 10)
-      .orElse(100))
+      .orElse(999))
 
-    Log.out(testValue._(v => v * 10)._(v => v + 10).orElse(100))
-    Log.out(testValue._(v => v * 10)._(v => v + 10).__(100))
+    Log.out('hey!!!!!!!!!!!!!!!!!!!!!', testValue._(v => v * 10)._(v => v + 10).orElse(999))
+    Log.out(testValue._(v => v * 10)._(v => v + 10).__(999))
     Log.out(testValue._(v => v * 10)._(v => v.toString()).__('lol'))
     // Log.info(s)
     // Log.info(this.testNumber1(), 'yep')

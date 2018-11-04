@@ -14,12 +14,16 @@ export default class Optional<T> {
     this._value = value
   }
 
+  public get isPresent() {
+    return !isNullOrUndefined(this._value)
+  }
+
   public assign(value: Nullable<T>) {
     this._value = value
   }
 
   public ifPresent<U>(functor: (_: T) => Nullable<U>) {
-    if (!isNullOrUndefined(this._value)) {
+    if (this.isPresent) {
       return Optional.of<U>(functor(this._value as T))
     }
     return Optional.of<U>(null)
@@ -30,10 +34,10 @@ export default class Optional<T> {
   public ___ = <U extends {}>(value: Nullable<U> | Optional<U>) => this.or(value)
 
   public orElse(value: T) {
-    return isNullOrUndefined(this._value) ? value : this._value
+    return this.isPresent ? this._value : value
   }
 
   public or<U>(value: Nullable<U> | Optional<U>) {
-    return isNullOrUndefined(this._value) ? value : this._value
+    return this.isPresent ? this._value : value
   }
 }
