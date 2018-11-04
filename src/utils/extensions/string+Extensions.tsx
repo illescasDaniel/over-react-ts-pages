@@ -1,5 +1,5 @@
 /*tslint:disable:interface-name*/
-export {}
+export { }
 
 declare global {
   interface String {
@@ -8,11 +8,11 @@ declare global {
   }
 }
 
-String.prototype.isEmpty = function() {
+String.prototype.isEmpty = function () {
   return this.length === 0
 }
 
-String.prototype.isBlank = function() {
-	return this.trim().length === 0
+String.prototype.isBlank = function () {
+  return this.trim().length === 0
 }
 /*tslint:enable:interface-name*/

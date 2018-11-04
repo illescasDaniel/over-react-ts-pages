@@ -8,8 +8,10 @@ import RecipeSearchResult from '../../models/recipeSearchResult'
 import logo from '../../resources/logo.svg'
 import positive from '../../utils/decorators/numbers/positive'
 import length from '../../utils/decorators/strings/length'
+import '../../utils/extensions/index'
 import Log from '../../utils/log'
-import * as styles from './styles/home.css'
+import Optional from '../../utils/optional'
+import * as style from './styles/home.css'
 
 export interface IHomeProps {
   text: string
@@ -22,24 +24,36 @@ export interface IHomeState {
 
 export default class Home extends React.Component<IHomeProps, IHomeState> {
 
-  public readonly state: Readonly<IHomeState> = {recipeTitles: []}
+  public readonly state: IHomeState = { recipeTitles: [] }
 
   @positive()
   public testNumber: number | null = 100
 
-  @length({min: 1, max: 10})
+  @length({ min: 1, max: 10 })
   public testString: string | null = 'hello'
 
   public constructor(props: IHomeProps) {
     super(props)
+    Object.ifPresent(this.testNumber, (value: number) => value + 10)
     Log.out(this.testNumber)
     this.testNumber = 200
     Log.out(this.testNumber)
     this.testNumber = -200
     Log.out(this.testNumber)
+    Log.out(Optional.of(this.testNumber).orElse(0))
     this.fetchAPI().catch((reason) => {
       Log.error(`Request rejected\n${reason}`)
     })
+
+    const testValue = new Optional<number>(1)
+    Log.out(testValue
+      .ifPresent(v => v * 10)
+      .ifPresent(v => v + 10)
+      .orElse(100))
+
+    Log.out(testValue._(v => v * 10)._(v => v + 10).orElse(100))
+    Log.out(testValue._(v => v * 10)._(v => v + 10).__(100))
+    Log.out(testValue._(v => v * 10)._(v => v.toString()).__('lol'))
     // Log.info(s)
     // Log.info(this.testNumber1(), 'yep')
   }
@@ -49,7 +63,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
     // This is just a test
     // For HTTP requests you should prepend the cors url, or use your own...
     // Outside of github pages you just have to enable cors in your server
-    const response: Response = await fetch(Cors.anywhereURL+"http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3")
+    const response: Response = await fetch(Cors.anywhereURL + 'http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3')
     const recipeSearchResult: RecipeSearchResult = await response.json()
     let i = 0
     this.setState({
@@ -60,16 +74,16 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
   }
 
   public render() {
-    Log.out({test: 'hii'}, 'lol')
+    Log.out({ test: 'hii' }, 'lol')
     Log.out(this.testNumber, ''.isEmpty())
-    const { text, testNumber} = this.props
+    const { text, testNumber } = this.props
     const { recipeTitles } = this.state
     return (
       <div>
         <Button onClick={this._onForm1ButtonClick}>
           <FontAwesomeIcon icon={faCoffee} /> {text} {testNumber}
         </Button>
-        <img src={logo} className={styles.imgLogo} />
+        <img src={logo} className={style.imgLogo} />
         <p>This is an async fetch example from this <a href="http://www.recipepuppy.com/about/api/">recipes api</a></p>
         <div>
           {recipeTitles}

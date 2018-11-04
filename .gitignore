@@ -27,3 +27,4 @@ src/**/*.css.d.ts
 
 .idea/*
 /dist/*
+.vscode/*
